@@ -23,10 +23,9 @@ export default function Poster({film}) {
         console.log(screen)
     }
 
-    {}
     return (
         <>
-            <StyledTitlePage>Selecione o filme</StyledTitlePage>
+            <StyledTitlePage>Selecione o filme:</StyledTitlePage>
             <StyledScreenPoster>
                 {films.map((film) => <Movies key={film.id} film={film} screen={screen} setScreen={setScreen}/>)}
             </StyledScreenPoster>

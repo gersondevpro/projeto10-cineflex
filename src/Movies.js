@@ -1,14 +1,16 @@
+import { Link, useParams } from "react-router-dom"
 import styled from "styled-components"
 
 export default function Movies({film, screen, setScreen}) {
-
+    console.log(film.id)
     return(
         <StyledPoster>
-            <img 
-                onClick={() => displayTime(film)}
-                src={film.posterURL}
-                alt={film.title}
-            />
+            <Link to={`/filme/${film.id}`}>
+                <img 
+                    src={film.posterURL}
+                    alt={film.title}
+                />
+            </Link>
         </StyledPoster>
     )
 }
