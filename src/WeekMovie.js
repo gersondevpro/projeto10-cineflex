@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom"
+import { Link, useParams } from "react-router-dom"
 import styled from "styled-components"
 
 export default function WeekMovie({value, movie}) {
@@ -8,12 +8,12 @@ export default function WeekMovie({value, movie}) {
             <StyledMovie>
                 <h3>{value.weekday} - {value.date}</h3>
                 <StyledMovieBox>
-                    <Link>
+                    <Link to={`/sessao/${value.showtimes[0].id}`}>
                         <StyledMovieBoxUnit>
                             <h4>{value.showtimes[0].name}</h4>
                         </StyledMovieBoxUnit>
                     </Link>
-                    <Link>
+                    <Link to={`/sessao/${value.showtimes[1].id}`}>
                         <StyledMovieBoxUnit>
                             <h4>{value.showtimes[1].name}</h4>
                         </StyledMovieBoxUnit>
@@ -70,6 +70,7 @@ const StyleFooterMovie = styled.div`
     height: 117px;
     background-color: #9EADBA;
     position: fixed;
+    z-index: 1;
     bottom: 0;
     border: 1px solid #9EADBA;
     display: flex;

@@ -19,7 +19,7 @@ export default function App() {
 
                         <Route path="/" element={<Poster/>}></Route>
                         <Route path="/filme/:idFilme" element={<Time/>}></Route>
-                        <Route path="/sessao" element={<Session/>}></Route>
+                        <Route path="/sessao/:idSessao" element={<Session/>}></Route>
 
 
                         {/* <Route path="/filme/:idFilme" element={</Exemplo de componente>}></Route>
