@@ -41,7 +41,6 @@ export default function Session() {
 
     function addSelection(event) {
         event.preventDefault()
-        alert("Deu certo!")
 
         const request = {
             seats: numberSeat,
@@ -54,7 +53,6 @@ export default function Session() {
         const promise = axios.post("https://mock-api.driven.com.br/api/v5/cineflex/seats/book-many", request)
 
         promise.then(() => {
-            alert("envio de reserva deu certo")
             navigate("/sucesso", {state: request})
         })
 
@@ -75,6 +73,7 @@ export default function Session() {
                         color={s.isAvailable.toString()}
                         onClick={() => selectSeat(s)}
                         checkSeat={checkSeat.includes(s.id).toString()}
+                        data-identifier="seat"
                         >
                         <h6>{s.name}</h6>
                     </StyledSeat>)}
@@ -82,15 +81,15 @@ export default function Session() {
             </StyledSeatsScreen>
             <StyledLegendDisplay>
                 <StyledLegendUnit>
-                    <StyledLegendGreen/>
+                    <StyledLegendGreen data-identifier="seat-selected-subtitle"/>
                     <StyledLegendText>Selecionado</StyledLegendText>
                 </StyledLegendUnit>
                 <StyledLegendUnit>
-                    <StyledLegendGray/>
+                    <StyledLegendGray data-identifier="seat-available-subtitle"/>
                     <StyledLegendText>Disponível</StyledLegendText>
                 </StyledLegendUnit>
                 <StyledLegendUnit>
-                    <StyledLegendYellow/>
+                    <StyledLegendYellow data-identifier="seat-unavailable-subtitle"/>
                     <StyledLegendText>Indisponível</StyledLegendText>
                 </StyledLegendUnit>
             </StyledLegendDisplay>
@@ -104,7 +103,8 @@ export default function Session() {
                         type="text" 
                         placeholder="Digite seu nome..."
                         onChange={(e) => setCheckName(e.target.value)}
-                        required>
+                        required
+                        data-identifier="buyer-name-input">
                         </input>
                 </StyledForm>
                 <StyledForm>
@@ -115,16 +115,17 @@ export default function Session() {
                         type="text"
                         placeholder="Apenas números..."
                         onChange={(e) => setCheckCPF(e.target.value)}
-                        required>
+                        required
+                        data-identifier="buyer-cpf-input">
                         </input>
                 </StyledForm>
-                    <button type="submit"><h4>Reservar assento(s)</h4></button>
+                    <button type="submit" data-identifier="reservation-btn"><h4>Reservar assento(s)</h4></button>
             </StyledFormScreen>
-            <StyleFooterMovie>
+            <StyleFooterMovie data-identifier="movie-and-session-infos-preview">
                 <StyledMovieImage>
                     <img src={movieSession.movie.posterURL} alt={movieSession.movie.title} />
                 </StyledMovieImage>
-                <h2>{movieSession.movie.title}</h2>
+                <h2>{movieSession.movie.title} <br></br> {movieSession.day.weekday} - {movieSession.name}</h2>
             </StyleFooterMovie>
         </>
     )} else {
@@ -265,6 +266,7 @@ const StyleFooterMovie = styled.div`
     h2 {
         font-size: 20px;
         color: #293845;
+        line-height: 25px;
     }
     `
 

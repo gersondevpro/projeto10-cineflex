@@ -5,22 +5,22 @@ export default function WeekMovie({ value, movie }) {
     return (
         <div>
             <StyledMovie>
-                <h3>{value.weekday} - {value.date}</h3>
+                <h3 data-identifier="session-date">{value.weekday} - {value.date}</h3>
                 <StyledMovieBox>
                     <Link to={`/sessao/${value.showtimes[0].id}`}>
-                        <StyledMovieBoxUnit>
-                            <h4>{value.showtimes[0].name}</h4>
+                        <StyledMovieBoxUnit data-identifier="hour-minute-btn">
+                            <h4 data-identifier="session-date">{value.showtimes[0].name}</h4>
                         </StyledMovieBoxUnit>
                     </Link>
                     <Link to={`/sessao/${value.showtimes[1].id}`}>
-                        <StyledMovieBoxUnit>
-                            <h4>{value.showtimes[1].name}</h4>
+                        <StyledMovieBoxUnit data-identifier="hour-minute-btn">
+                            <h4 data-identifier="session-date">{value.showtimes[1].name}</h4>
                         </StyledMovieBoxUnit>
                     </Link>
                 </StyledMovieBox>
                 <StyleFooterMovie>
                     <StyledMovieImage>
-                        <img src={movie.posterURL} alt={movie.title} />
+                        <img src={movie.posterURL} alt={movie.title} data-identifier="movie-img-preview"/>
                     </StyledMovieImage>
                     <h2>{movie.title}</h2>
                 </StyleFooterMovie>

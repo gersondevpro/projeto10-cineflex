@@ -3,8 +3,7 @@ import styled from "styled-components";
 import { useLocation } from "react-router-dom";
 
 
-export default function Success({request}) {
-    console.log(request)
+export default function Success() {
     const location = useLocation()
     const seatsReserved = location.state.seats
     return (
@@ -13,19 +12,19 @@ export default function Success({request}) {
             <StyledSuccessScreen>
                 <StyledSuccessUnit>
                     <h3>Filme e sessão</h3>
-                    <h4>{location.state.movie.movie.title} <br></br> {location.state.movie.day.date} ({location.state.movie.name})</h4>
+                    <h4 data-identifier="movie-session-infos-reserve-finished">{location.state.movie.movie.title} <br></br> {location.state.movie.day.date} ({location.state.movie.name})</h4>
                 </StyledSuccessUnit>
                 <StyledSuccessUnit>
                     <h3>Ingressos</h3>
-                    {seatsReserved.map((s) => <h5 key={s}>Assento {s}</h5>)}
+                    {seatsReserved.map((s) => <h5 key={s} data-identifier="seat-infos-reserve-finished">Assento {s}</h5>)}
                 </StyledSuccessUnit>
                 <StyledSuccessUnit>
                     <h3>Comprador</h3>
-                    <h4>Nome: {location.state.name} <br></br> CPF: {location.state.cpf}</h4>
+                    <h4 data-identifier="buyer-infos-reserve-finished">Nome: {location.state.name} <br></br> CPF: {location.state.cpf}</h4>
                 </StyledSuccessUnit>
             </StyledSuccessScreen>
             <Link to="/">
-                <StyledSuccessButton><h4>Voltar pra Home</h4></StyledSuccessButton>
+                <StyledSuccessButton data-identifier="back-to-home-btn"><h4>Voltar pra Home</h4></StyledSuccessButton>
             </Link>
         </>
     )
