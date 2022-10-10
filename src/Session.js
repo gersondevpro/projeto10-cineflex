@@ -62,7 +62,8 @@ export default function Session() {
             console.log(err.response.data.mensagem)
         })
     }
-
+    console.log(movieSession)
+    if(Object.keys(movieSession).length !== 0) {
     return (
         <>
             <StyledTitlePage>Selecione o(s) assento(s):</StyledTitlePage>
@@ -119,8 +120,16 @@ export default function Session() {
                 </StyledForm>
                     <button type="submit"><h4>Reservar assento(s)</h4></button>
             </StyledFormScreen>
+            <StyleFooterMovie>
+                <StyledMovieImage>
+                    <img src={movieSession.movie.posterURL} alt={movieSession.movie.title} />
+                </StyledMovieImage>
+                <h2>{movieSession.movie.title}</h2>
+            </StyleFooterMovie>
         </>
-    )
+    )} else {
+        return <div>Carregando...</div>
+    }
 }
 
 const StyledTitlePage = styled.h2`
@@ -201,7 +210,7 @@ const StyledFormScreen = styled.form`
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 40px;
+    margin-top: 30px;
     gap: 20px;
     button {
         display: flex;
@@ -212,7 +221,7 @@ const StyledFormScreen = styled.form`
     background-color: #E8833A;
     border-radius: 5px;
     border: none;
-    margin-top: 50px;
+    margin-top: 10px;
     h4 {
         font-size: 18px;
         color: #FFFFFF;
@@ -238,5 +247,37 @@ const StyledForm = styled.div`
         border: none;
         border: 1px solid #D5D5D5;
         padding-left: 20px;
+    }
+`
+
+const StyleFooterMovie = styled.div`
+    width: 100vw;
+    height: 117px;
+    background-color: #9EADBA;
+    position: fixed;
+    z-index: 1;
+    bottom: 0;
+    border: 1px solid #9EADBA;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
+    h2 {
+        font-size: 20px;
+        color: #293845;
+    }
+    `
+
+const StyledMovieImage = styled.div`
+    background-color: #FFFFFF;
+    width: 64px;
+    height: 89px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 15px;
+    img {
+        width: 48px;
+        height: 72px;
     }
 `

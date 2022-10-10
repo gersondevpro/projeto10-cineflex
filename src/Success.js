@@ -80,6 +80,7 @@ const StyledSuccessButton = styled.button`
     border-radius: 5px;
     border: none;
     margin-top: 150px;
+    text-decoration: none;
     h4 {
         font-size: 18px;
         color: #FFFFFF;
