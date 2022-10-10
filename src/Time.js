@@ -7,22 +7,22 @@ import WeekMovie from "./WeekMovie"
 export default function Time() {
     const [movie, setMovie] = useState({})
     const [schedule, setSchedule] = useState([])
-    const {idFilme} = useParams()
+    const { idFilme } = useParams()
 
     useEffect(() => {
         const promise = axios.get(`https://mock-api.driven.com.br/api/v5/cineflex/movies/${idFilme}/showtimes`)
 
-        promise.then((resp) => { setMovie(resp.data); setSchedule(resp.data.days)})
-        promise.catch((err) => {console.log(err.response.data)})
+        promise.then((resp) => { setMovie(resp.data); setSchedule(resp.data.days) })
+        promise.catch((err) => { console.log(err.response.data) })
     }, [])
 
 
-        return (
-            <div>
-                <StyledTitlePage>Selecione o horário:</StyledTitlePage>
-                {schedule.map((value) => <WeekMovie value={value} key={value.id} movie={movie}/>)}
-            </div>
-        )
+    return (
+        <div>
+            <StyledTitlePage>Selecione o horário:</StyledTitlePage>
+            {schedule.map((value) => <WeekMovie value={value} key={value.id} movie={movie} />)}
+        </div>
+    )
 }
 
 const StyledTitlePage = styled.h2`

@@ -1,5 +1,5 @@
 import axios from "axios"
-import { useParams } from "react-router-dom"
+import { Link, useNavigate, useParams } from "react-router-dom"
 import { useEffect, useState } from "react"
 import styled from "styled-components"
 
@@ -8,6 +8,10 @@ export default function Session() {
     const [seatsMovie, setSeatsMovie] = useState([])
     const {idSessao} = useParams()
     const [checkSeat, setCheckSeat] = useState([])
+    const [numberSeat, setNumberSeat] = useState([])
+    const [checkName, setCheckName] = useState("")
+    const [checkCPF, setCheckCPF] = useState(0)
+    const navigate = useNavigate()
 
     useEffect(() => {
         const promise = axios.get(`https://mock-api.driven.com.br/api/v5/cineflex/showtimes/${idSessao}/seats`)
@@ -17,12 +21,48 @@ export default function Session() {
     }, [])
 
     function selectSeat(seat) {
-        if(seat.isAvailable === true) {
-            const reserved = [...checkSeat, seat]
+
+        if(checkSeat.includes(seat.id)) {
+            const arr = checkSeat.filter((s) => seat.id !== s)
+            const nums = numberSeat.filter((n) => seat.name !== n)
+            setCheckSeat(arr)
+            setNumberSeat(nums)
+
+        } else if (seat.isAvailable === true) {
+            const reserved = [...checkSeat, seat.id]
             setCheckSeat(reserved)
+            const numsSeat = [...numberSeat, seat.name]
+            setNumberSeat(numsSeat)
+
+        } else if (seat.isAvailable === false) {
+            alert("Esse assento não está disponível")
         }
     }
-    console.log(checkSeat)
+
+    function addSelection(event) {
+        event.preventDefault()
+        alert("Deu certo!")
+
+        const request = {
+            seats: numberSeat,
+            movie: movieSession,
+            ids: checkSeat,
+            name: checkName,
+            cpf: checkCPF
+        }
+
+        const promise = axios.post("https://mock-api.driven.com.br/api/v5/cineflex/seats/book-many", request)
+
+        promise.then(() => {
+            alert("envio de reserva deu certo")
+            navigate("/sucesso", {state: request})
+        })
+
+        promise.catch((err) => {
+            console.log(err.response.data.mensagem)
+        })
+    }
+
     return (
         <>
             <StyledTitlePage>Selecione o(s) assento(s):</StyledTitlePage>
@@ -33,7 +73,7 @@ export default function Session() {
                         key={s.id}
                         color={s.isAvailable.toString()}
                         onClick={() => selectSeat(s)}
-                        checkSeat={checkSeat.includes(s).toString()}
+                        checkSeat={checkSeat.includes(s.id).toString()}
                         >
                         <h6>{s.name}</h6>
                     </StyledSeat>)}
@@ -53,6 +93,32 @@ export default function Session() {
                     <StyledLegendText>Indisponível</StyledLegendText>
                 </StyledLegendUnit>
             </StyledLegendDisplay>
+
+            <StyledFormScreen onSubmit={addSelection}>
+                <StyledForm>
+                    <label forhtml="name">Nome do comprador:</label>
+                    <input
+                        id="name" 
+                        name="name" 
+                        type="text" 
+                        placeholder="Digite seu nome..."
+                        onChange={(e) => setCheckName(e.target.value)}
+                        required>
+                        </input>
+                </StyledForm>
+                <StyledForm>
+                    <label forhtml="cpf">CPF do comprador:</label>
+                    <input
+                        id="cpf"
+                        name="cpf"
+                        type="text"
+                        placeholder="Apenas números..."
+                        onChange={(e) => setCheckCPF(e.target.value)}
+                        required>
+                        </input>
+                </StyledForm>
+                    <button type="submit"><h4>Reservar assento(s)</h4></button>
+            </StyledFormScreen>
         </>
     )
 }
@@ -129,4 +195,48 @@ const StyledLegendGreen = styled.div`
 
 const StyledLegendText = styled.p`
     font-size: 13px;
+`
+
+const StyledFormScreen = styled.form`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 40px;
+    gap: 20px;
+    button {
+        display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 225px;
+    height: 43px;
+    background-color: #E8833A;
+    border-radius: 5px;
+    border: none;
+    margin-top: 50px;
+    h4 {
+        font-size: 18px;
+        color: #FFFFFF;
+        text-align: center;
+    }
+    }
+`
+
+const StyledForm = styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    label {
+        font-size: 18px;
+    }
+    input {
+        width: 327px;
+        height: 51px;
+        font-size: 18px;
+        font-style: italic;
+        color: #AFAFAF;
+        border-radius: 5px;
+        border: none;
+        border: 1px solid #D5D5D5;
+        padding-left: 20px;
+    }
 `

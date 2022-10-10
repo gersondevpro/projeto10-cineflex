@@ -1,9 +1,9 @@
 import { Link, useParams } from "react-router-dom"
 import styled from "styled-components"
 
-export default function WeekMovie({value, movie}) {
+export default function WeekMovie({ value, movie }) {
 
-    return (    
+    return (
         <div>
             <StyledMovie>
                 <h3>{value.weekday} - {value.date}</h3>
@@ -19,12 +19,12 @@ export default function WeekMovie({value, movie}) {
                         </StyledMovieBoxUnit>
                     </Link>
                 </StyledMovieBox>
-                    <StyleFooterMovie>
-                        <StyledMovieImage>
-                            <img src={movie.posterURL} alt={movie.title}/>
-                        </StyledMovieImage>
-                            <h2>{movie.title}</h2>
-                    </StyleFooterMovie>
+                <StyleFooterMovie>
+                    <StyledMovieImage>
+                        <img src={movie.posterURL} alt={movie.title} />
+                    </StyledMovieImage>
+                    <h2>{movie.title}</h2>
+                </StyleFooterMovie>
             </StyledMovie>
         </div>
     )
@@ -50,7 +50,7 @@ const StyledMovieBox = styled.div`
     margin-left: 20px;
     `
 
-const StyledMovieBoxUnit = styled.div`
+const StyledMovieBoxUnit = styled.button`
     display: flex;
     justify-content: center;
     align-items: center;
@@ -58,10 +58,13 @@ const StyledMovieBoxUnit = styled.div`
     height: 43px;
     background-color: #E8833A;
     border-radius: 5px;
+    border: none;
+    text-decoration: none;
     h4 {
         font-size: 18px;
         color: #FFFFFF;
         text-align: center;
+        text-decoration: none;
     }
 `
 

@@ -3,8 +3,8 @@ import { useEffect, useState } from "react"
 import axios from "axios"
 import Movies from "./Movies"
 
-export default function Poster({film}) {
-    
+export default function Poster({ film }) {
+
     const [films, setFilms] = useState([])
     const [error, setError] = useState(false)
     const [screen, setScreen] = useState(false)
@@ -12,22 +12,21 @@ export default function Poster({film}) {
     useEffect(() => {
 
         const promise = axios.get("https://mock-api.driven.com.br/api/v5/cineflex/movies")
-        
+
         promise.then((res) => { setFilms(res.data) })
-        promise.catch((erro) => {console.log(erro.response.data)})
+        promise.catch((erro) => { console.log(erro.response.data) })
 
     }, [])
 
     function displayTime(movie) {
         setScreen(!screen)
-        console.log(screen)
     }
 
     return (
         <>
             <StyledTitlePage>Selecione o filme:</StyledTitlePage>
             <StyledScreenPoster>
-                {films.map((film) => <Movies key={film.id} film={film} screen={screen} setScreen={setScreen}/>)}
+                {films.map((film) => <Movies key={film.id} film={film} screen={screen} setScreen={setScreen} />)}
             </StyledScreenPoster>
         </>
     )
